@@ -59,7 +59,11 @@ body {
   background: #f4f4f4;
   margin: 5px;
   padding: 10px 20px;
-  cursor: pointer;
+  cursor: move;
+}
+.task:hover{
+  scale: 1.01;
+  background-color: rgb(128, 202, 236);
 }
 
 .task.reminder {

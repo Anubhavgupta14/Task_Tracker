@@ -1,3 +1,4 @@
+import React,{useRef} from "react"
 import { useState } from "react"
 import Header from './components/header'
 import Tasks from './components/Tasks'
@@ -24,6 +25,10 @@ function App() {
         reminder: false
     },
 ])
+    // dragitem & dragoveritem
+    const dragitem = useRef(null)
+    const DragOverItem = useRef(null)
+    
     //Add Task
     const addTask = (x)=>{
       const id = Math.floor(Math.random()*10000)+1
@@ -41,12 +46,41 @@ function App() {
       setTasks(tasks.map((x)=>x.id===id ? {...x,reminder: !x.reminder}:x))
     }
 
+    //Drag Event
+    // const onDragStart = (e, index)=>{
+    //   console.log('Drag Started',index)
+    // }
+    // const onDragEnter = (e, index)=>{
+    //   console.log('Drag Enter',index)
+    // }
+
+    // Handle sorting
+    const handleSort=()=>{
+      // dublicate items
+      let details = [...tasks]
+      const draggedItemContent=details.splice(dragitem.current,1)[0]
+
+      // switch the position
+      details.splice(DragOverItem.current,0,draggedItemContent)
+
+      // reset
+      dragitem.current=null
+      DragOverItem.current=null
+
+      // update
+      setTasks(details)
+      console.log('ok')
+    }
+
+    // const onDragEnd = (e)=>{
+    //   console.log('Drag End')
+    // }
 
   return (
     <div className='container'>
       <Header title='Task Tracker' onToggleAdd={()=> setShowAddTask(!showAddTask)} showAdd={showAddTask} />
       {showAddTask && <AddTask onAddtask={addTask}/>}
-      {tasks.length>0?<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No Tasks to Show'}
+      {tasks.length>0?<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} dragitem={dragitem} DragOverItem={DragOverItem} handleSort={handleSort}/> : 'No Tasks to Show'}
     </div>
   )
 }
