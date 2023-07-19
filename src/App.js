@@ -33,7 +33,7 @@ function App() {
 
     // Delete Task
     const deleteTask = (id)=>{
-      setTasks(tasks.filter((task)=>task.id!=id))
+      setTasks(tasks.filter((task)=>task.id!==id))
     }
 
     // Toggle Reminder
