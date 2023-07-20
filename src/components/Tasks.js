@@ -3,7 +3,7 @@ const Tasks = ({tasks, onDelete,onToggle,dragitem,DragOverItem,handleSort}) => {
   return (
     <>
       {tasks.map((x,index)=>(
-      <Task key={x.id} task={x} onDelete={onDelete} onToggle={onToggle} dragitem={dragitem} DragOverItem={DragOverItem} handleSort={handleSort} index={index} />
+      <Task key={index} task={x} onDelete={onDelete} onToggle={onToggle} dragitem={dragitem} DragOverItem={DragOverItem} handleSort={handleSort} index={index} />
       ))}
     </>
   )
